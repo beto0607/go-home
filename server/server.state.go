@@ -10,9 +10,10 @@ type LampColor struct {
 	X float64 `json:"x"`
 	Y float64 `json:"y"`
 }
+
 type LampState struct {
 	Powered     bool      `json:"powered"`
-	Name        string    `json:"string"`
+	Name        string    `json:"name"`
 	Brightness  int       `json:"brightness"`
 	Temperature int       `json:"temperature"`
 	Color       LampColor `json:"color"`
