@@ -1,8 +1,6 @@
 package lamp
 
 import (
-	"log"
-
 	"tinygo.org/x/bluetooth"
 )
 
@@ -59,29 +57,6 @@ func (self *Lamp) Connect(adapter *bluetooth.Adapter) (err error) {
 		return err
 	}
 	self.device = device
-	// log.Printf("Device name %s", device.)
 
-	return nil
-}
-func (self *Lamp) LogCharacteristicsFor(serviceUUID string) (err error) {
-	log.Printf("LogCharacteristicsFor: %s\n", serviceUUID)
-	// serviceId, _ := bluetooth.ParseUUID(serviceUUID)
-	services, err := self.device.DiscoverServices(nil)
-	// services, err := self.device.DiscoverServices([]bluetooth.UUID{serviceId})
-	if err != nil {
-		return err
-	}
-
-	for _, service := range services {
-		log.Printf("Service: %s\n", service.String())
-		characteristics, err := service.DiscoverCharacteristics(nil)
-		if err != nil {
-			return err
-		}
-		for _, characteristic := range characteristics {
-			log.Printf("Characteristic: %s\n", characteristic.String())
-
-		}
-	}
 	return nil
 }

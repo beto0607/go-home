@@ -39,10 +39,8 @@ func (self *Lamp) SetPower(power bool) (err error) {
 	}
 
 	if power {
-		// Turn on
 		characteristics[0].WriteWithoutResponse([]byte{1})
 	} else {
-		// Turn off
 		characteristics[0].WriteWithoutResponse([]byte{0})
 	}
 	self.Powered = power

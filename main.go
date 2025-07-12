@@ -20,7 +20,7 @@ func main() {
 	}
 
 	adapter := bluetooth.DefaultAdapter
-	// Enable adapter
+
 	err := adapter.Enable()
 	if err != nil {
 		panic("failed to enable BLE adapter")

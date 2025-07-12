@@ -2,6 +2,7 @@ package lamp
 
 import "tinygo.org/x/bluetooth"
 
+// Reference: https://github.com/flip-dots/HueBLE/blob/main/HueBLE.py
 // #: String containing manufacturer. Handle 15.
 const UUID_MANUFACTURER = "00002a29-0000-1000-8000-00805f9b34fb"
 
