@@ -18,21 +18,10 @@ function bodyLoaded() {
     loadState()
 }
 
-var baseUrl = ""
 /**
  * @type {State}
  */
 let state = undefined
-
-function loadState() {
-    fetch(baseUrl + '/state')
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data)
-            state = data;
-            updateStateView(data);
-        })
-}
 
 /**
 * @param {State} data

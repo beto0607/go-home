@@ -7,6 +7,7 @@ RUN go build -o ./my-app .
 
 FROM alpine
 COPY --from=build /app/my-app .
+COPY --from=build /app/client/ ./client/
 RUN apk add --no-cache libc6-compat
 EXPOSE 8979
 CMD ["./my-app"]

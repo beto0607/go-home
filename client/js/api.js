@@ -1,6 +1,16 @@
-var baseUrl = ""
+var baseUrl = "."
 const DEBOUNCE_TIME = 300
 let lastUpdateTimeStamp = Date.now()
+
+function loadState() {
+    fetch(baseUrl + '/state')
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data)
+            state = data;
+            updateStateView(data);
+        })
+}
 
 /**
 * @param {boolean} newValue
