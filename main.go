@@ -5,13 +5,20 @@ import (
 	"go-home/server"
 	"log"
 	"net/http"
+	"os"
 
+	"github.com/joho/godotenv"
 	"tinygo.org/x/bluetooth"
 )
 
-const LAMP_BLUETOOTH_ADDRESS = "D6:5A:AD:D3:6C:87"
-
 func main() {
+	_ = godotenv.Load()
+
+	macAddress, ok := os.LookupEnv("LAMP_MAC_ADDRESS")
+	if !ok {
+		panic("No mac address for lamp")
+	}
+
 	adapter := bluetooth.DefaultAdapter
 	// Enable adapter
 	err := adapter.Enable()
@@ -19,7 +26,7 @@ func main() {
 		panic("failed to enable BLE adapter")
 	}
 
-	l, err := lamp.NewLamp(LAMP_BLUETOOTH_ADDRESS)
+	l, err := lamp.NewLamp(macAddress)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -27,7 +34,7 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-	println("Lamp connected, maybe?")
+	log.Println("Lamp connected, maybe?")
 
 	server.Lamp = l
 	http.HandleFunc("GET /state", server.GetLampState)
@@ -37,8 +44,11 @@ func main() {
 	http.HandleFunc("PATCH /color", server.PatchColor)
 	http.HandleFunc("PATCH /name", server.PatchName)
 
-	port := ":8080"
-	log.Printf("Listening in %s\n", port)
-	log.Fatal(http.ListenAndServe(port, nil))
+	port, ok := os.LookupEnv("PORT")
+	if !ok {
+		port = "8080"
+	}
 
+	log.Printf("Listening in %s\n", port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
