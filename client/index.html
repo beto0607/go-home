@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="/icons/icon-1024.png" />
+    <link rel="manifest" href="manifest.json" />
+    <title>Home lamp</title>
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <script type="application/javascript" src="/js/api.js"></script>
+    <script type="application/javascript" src="/js/libs/ColorSpace.js"></script>
+    <script type="application/javascript" src="/js/colors.js"></script>
+</head>
+
+<body onload="bodyLoaded()">
+    <h1>Welcome to... <br /> our home panel</h1>
+    <section>
+        <span class="loader"></span>
+        <div class="name-wrapper">
+            <span id="name-span">No name</span>
+        </div>
+        <div class="power-wrapper">
+            <span>Power:</span>
+            <label class="switch">
+                <input type="checkbox" id="lamp-power" onchange="patchPower(this.checked)">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="brightness-wrapper">
+            <label for="brightness">Brightness:</label>
+            <input type="range" id="brightness" name="brightness" min="0" max="255"
+                oninput="patchBrightness(parseInt(this.value,10))" />
+        </div>
+        <div class="temperature-wrapper">
+            <label for="temperature">Temperature:</label>
+            <input type="range" id="temperature" name="temperature" min="153" max="500"
+                oninput="patchTemperature(parseInt(this.value,10))" />
+        </div>
+        <div class="color-wrapper">
+            <label for="color">Color:</label>
+            <input type="color" id="color" name="color" oninput="patchColor(hexToXYColor(this.value))" />
+        </div>
+    </section>
+
+    <script type="application/javascript" src="/js/index.js"></script>
+</body>
+
+</html>

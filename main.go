@@ -44,6 +44,8 @@ func main() {
 	http.HandleFunc("PATCH /color", server.PatchColor)
 	http.HandleFunc("PATCH /name", server.PatchName)
 
+	fs := http.FileServer(http.Dir("./client"))
+	http.Handle("GET /", fs)
 	port, ok := os.LookupEnv("PORT")
 	if !ok {
 		port = "8080"
