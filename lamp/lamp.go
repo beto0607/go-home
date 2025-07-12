@@ -1,7 +1,6 @@
 package lamp
 
 import (
-	"errors"
 	"log"
 
 	"tinygo.org/x/bluetooth"
@@ -14,12 +13,12 @@ type XYColor struct {
 
 type Lamp struct {
 	macAddress string
-	Powered    bool
 
 	address bluetooth.Address
 	mac     bluetooth.MAC
 	device  bluetooth.Device
 
+	Powered     bool
 	Color       XYColor
 	Name        string
 	Temperature uint16 // 153-500
@@ -85,26 +84,4 @@ func (self *Lamp) LogCharacteristicsFor(serviceUUID string) (err error) {
 		}
 	}
 	return nil
-}
-
-func (self *Lamp) GetName() (name string, err error) {
-	services, err := self.device.DiscoverServices([]bluetooth.UUID{self.constants.UUIDHueId})
-	if len(services) == 0 {
-		return "", errors.New("Hue ID service not found")
-	}
-
-	characteristics, err := services[0].DiscoverCharacteristics([]bluetooth.UUID{self.constants.UUIDNameCharacteristic})
-	if len(characteristics) == 0 {
-		return "", errors.New("Name characteristic not found")
-	}
-
-	data := make([]byte, 128)
-	n, err := characteristics[0].Read(data)
-
-	if err != nil {
-		return "", err
-	}
-
-	self.Name = string(data[0:n])
-	return self.Name, nil
 }

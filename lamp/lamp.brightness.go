@@ -26,7 +26,7 @@ func (self *Lamp) GetBrightness() (brightness uint8, err error) {
 	brightness = uint8(data[0])
 
 	self.Brightness = brightness
-	return self.Brightness, nil
+	return brightness, nil
 }
 
 func (self *Lamp) SetBrightness(brightness uint8) (err error) {
